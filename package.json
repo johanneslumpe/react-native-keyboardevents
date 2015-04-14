@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git@github.com:johanneslumpe/react-native-keyboardevents.git"
   },
-  "author": "Johannes Lumpe",
+  "author": "Johannes Lumpe <johannes@lum.pe> (https://github.com/johanneslumpe)",
   "license": "MIT",
   "dependencies": {
     "eventemitter3": "^0.1.6",
