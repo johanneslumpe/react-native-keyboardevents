@@ -1,0 +1,15 @@
+{
+  "name": "react-native-keyboardevents",
+  "version": "0.1.0",
+  "description": "Monitors keyboard show/hide notifications",
+  "main": "KeyboardEvents.ios.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Johannes Lumpe",
+  "license": "MIT",
+  "dependencies": {
+    "eventemitter3": "^0.1.6",
+    "react-native": "^0.3.11"
+  }
+}
