@@ -63,12 +63,15 @@ RCT_EXPORT_MODULE();
 - (NSDictionary*) makeBodyFromNotification:(NSNotification*)notification {
   CGRect keyboardBeginRect = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
   CGRect keyboardEndRect = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-  
+  NSNumber *durationValue = [[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    
   NSDictionary *body = @{
-    @"begin": [self getDictionaryForRect:keyboardBeginRect],
-    @"end": [self getDictionaryForRect:keyboardEndRect]
-  };
+                       @"begin": [self getDictionaryForRect:keyboardBeginRect],
+                       @"end": [self getDictionaryForRect:keyboardEndRect],
+                       @"duration": durationValue
+                       };
   
+
   return body;
 }
 
