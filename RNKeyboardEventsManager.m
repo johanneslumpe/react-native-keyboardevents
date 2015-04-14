@@ -46,31 +46,50 @@ RCT_EXPORT_MODULE();
   return self;
 }
 
+- (NSDictionary*)getDictionaryForRect:(CGRect)rect {
+  CGSize size = rect.size;
+  CGPoint origin = rect.origin;
+  int h = MIN(size.height, size.width);
+  int w = MAX(size.height, size.width);
+  
+  return @{
+    @"width": [NSNumber numberWithInt:w],
+    @"height": [NSNumber numberWithInt:h],
+    @"x": [NSNumber numberWithInt:origin.x],
+    @"y": [NSNumber numberWithInt:origin.y]
+  };
+}
+
+- (NSDictionary*) makeBodyFromNotification:(NSNotification*)notification {
+  CGRect keyboardBeginRect = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+  CGRect keyboardEndRect = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+  
+  NSDictionary *body = @{
+    @"begin": [self getDictionaryForRect:keyboardBeginRect],
+    @"end": [self getDictionaryForRect:keyboardEndRect]
+  };
+  
+  return body;
+}
+
 - (void)keyboardWillHide:(NSNotification*)notification {
-  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsWillHide body:nil];
+  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsWillHide
+                                              body:[self makeBodyFromNotification:notification]];
 }
 
 - (void)keyboardDidHide:(NSNotification*)notification {
-  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsDidHide body:nil];
+  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsDidHide
+                                              body:[self makeBodyFromNotification:notification]];
 }
 
 - (void)keyboardWillShow:(NSNotification*)notification {
-  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsWillShow body:nil];
+  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsWillShow
+                                              body:[self makeBodyFromNotification:notification]];
 }
 
 - (void)keyboardDidShow:(NSNotification*)notification {
-  CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-  
-  //Given size may not account for screen rotation
-  int h = MIN(keyboardSize.height,keyboardSize.width);
-  int w = MAX(keyboardSize.height,keyboardSize.width);
-  
-  NSDictionary *body = @{
-    @"width": [NSNumber numberWithInt:w],
-    @"height": [NSNumber numberWithInt:h],
-  };
-
-  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsDidShow body:body];
+  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsDidShow
+                                              body:[self makeBodyFromNotification:notification]];
 }
 
 - (NSDictionary *)constantsToExport

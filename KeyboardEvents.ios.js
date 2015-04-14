@@ -8,29 +8,29 @@ var KeyboardEventEmitter = new EventEmitter();
 
 RCTDeviceEventEmitter.addListener(
   RNKeyboardEventsManager.KeyboardWillShow,
-  () => {
-    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardWillShow);
+  (frames) => {
+    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardWillShow, frames);
   }
 );
 
 RCTDeviceEventEmitter.addListener(
   RNKeyboardEventsManager.KeyboardDidShow,
-  (size) => {
-    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardDidShow, size);
+  (frames) => {
+    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardDidShow, frames);
   }
 );
 
 RCTDeviceEventEmitter.addListener(
   RNKeyboardEventsManager.KeyboardWillHide,
-  () => {
-    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardWillHide);
+  (frames) => {
+    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardWillHide, frames);
   }
 );
 
 RCTDeviceEventEmitter.addListener(
   RNKeyboardEventsManager.KeyboardDidHide,
-  () => {
-    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardDidHide);
+  (frames) => {
+    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardDidHide, frames);
   }
 );
 
