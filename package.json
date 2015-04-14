@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:johanneslumpe/react-native-keyboardevents.git"
+  },
   "author": "Johannes Lumpe",
   "license": "MIT",
   "dependencies": {
