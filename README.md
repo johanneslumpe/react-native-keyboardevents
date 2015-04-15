@@ -12,10 +12,12 @@ var KeyboardEvents = require('react-native-keyboardevents');
 // to the desired events.
 var KeyboardEventEmitter = KeyboardEvents.Emitter;
 
-// Each event will receive a `frames` object, which contains two keys -
-// `begin` and `end` Those keys each contain an object describing the bounds
-// of the keyboard (x, y, width and height).
-//
+// Each event will receive a `frames` object, which contains three keys -
+// `begin`,  `end`, and `duration` . The `begin` and `end`  keys each
+// contain an object describing the bounds of the keyboard (x, y, width
+// and height). The `duration` key contains the length of the keyboard
+// animation in seconds.
+
 // The frame in `begin` describes the bounds of the keyboard before the
 // animation occurred and the frame in `end` describes the bounds the keyboard
 // will have, after the animation has completed.
