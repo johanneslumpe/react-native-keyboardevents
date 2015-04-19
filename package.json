@@ -1,6 +1,6 @@
 {
   "name": "react-native-keyboardevents",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Monitors keyboard show/hide notifications",
   "main": "KeyboardEvents.ios.js",
   "scripts": {
@@ -10,6 +10,13 @@
     "type": "git",
     "url": "git@github.com:johanneslumpe/react-native-keyboardevents.git"
   },
+  "keywords": [
+    "react-component",
+    "react-native",
+    "ios",
+    "keyboard",
+    "events"
+  ],
   "author": "Johannes Lumpe <johannes@lum.pe> (https://github.com/johanneslumpe)",
   "license": "MIT",
   "dependencies": {
