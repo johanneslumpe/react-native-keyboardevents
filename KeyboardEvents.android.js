@@ -2,10 +2,10 @@
 
 var warning = require('warning');
 
-var Video = {
+var KeyboardEvents = {
   test: function() {
     warning("Not yet implemented for Android.");
   }
 };
 
-module.exports = Video;
+module.exports = KeyboardEvents;
