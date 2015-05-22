@@ -2,7 +2,7 @@
 
 var RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
 var RNKeyboardEventsManager = require('NativeModules').RNKeyboardEventsManager;
-var EventEmitter = require('eventemitter3').EventEmitter;
+var EventEmitter = require('eventemitter3');
 
 var KeyboardEventEmitter = new EventEmitter();
 
