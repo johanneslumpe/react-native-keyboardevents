@@ -15,7 +15,8 @@ static NSString* RNKeyboardEventsDidShow = @"keyboardDidShow";
 static NSString* RNKeyboardEventsDidHide = @"keyboardDidHide";
 static NSString* RNKeyboardEventsWillShow = @"keyboardWillShow";
 static NSString* RNKeyboardEventsWillHide = @"keyboardWillHide";
-
+static NSString* RNKeyboardEventsWillChangeFrame = @"keyboardWillChangeFrame";
+static NSString* RNKeyboardEventsDidChangeFrame = @"keyboardDidChangeFrame";
 
 @implementation RNKeyboardEventsManager
 
@@ -40,9 +41,16 @@ RCT_EXPORT_MODULE();
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillChangeFrame:)
+                                                 name:UIKeyboardWillChangeFrameNotification
+                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidChangeFrame:)
+                                                 name:UIKeyboardDidChangeFrameNotification
+                                               object:nil];
 
   }
-  
   return self;
 }
 
@@ -75,6 +83,7 @@ RCT_EXPORT_MODULE();
   return body;
 }
 
+
 - (void)keyboardWillHide:(NSNotification*)notification {
   [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsWillHide
                                               body:[self makeBodyFromNotification:notification]];
@@ -95,6 +104,18 @@ RCT_EXPORT_MODULE();
                                               body:[self makeBodyFromNotification:notification]];
 }
 
+- (void)keyboardWillChangeFrame:(NSNotification*)notification {
+  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsWillChangeFrame
+                                              body:[self makeBodyFromNotification:notification]];
+}
+
+- (void)keyboardDidChangeFrame:(NSNotification*)notification {
+  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsDidChangeFrame
+                                              body:[self makeBodyFromNotification:notification]];
+}
+
+
+
 - (NSDictionary *)constantsToExport
 {
   return @{
@@ -102,6 +123,8 @@ RCT_EXPORT_MODULE();
     @"KeyboardDidHide": RNKeyboardEventsDidHide,
     @"KeyboardWillShow": RNKeyboardEventsWillShow,
     @"KeyboardWillHide": RNKeyboardEventsWillHide,
+    @"KeyboardWillChangeFrame": RNKeyboardEventsWillChangeFrame,
+    @"KeyboardDidChangeFrame": RNKeyboardEventsDidChangeFrame,
   };
 }
 

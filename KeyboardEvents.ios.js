@@ -34,10 +34,26 @@ RCTDeviceEventEmitter.addListener(
   }
 );
 
+RCTDeviceEventEmitter.addListener(
+  RNKeyboardEventsManager.KeyboardWillChangeFrame,
+  (frames) => {
+    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardWillChangeFrame, frames);
+  }
+);
+
+RCTDeviceEventEmitter.addListener(
+  RNKeyboardEventsManager.KeyboardWillChangeFrame,
+  (frames) => {
+      KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardDidChangeFrame, frames);
+  }
+);
+
 module.exports = {
   Emitter: KeyboardEventEmitter,
   KeyboardWillShowEvent: RNKeyboardEventsManager.KeyboardWillShow,
   KeyboardDidShowEvent: RNKeyboardEventsManager.KeyboardDidShow,
   KeyboardWillHideEvent: RNKeyboardEventsManager.KeyboardWillHide,
-  KeyboardDidHideEvent: RNKeyboardEventsManager.KeyboardDidHide
+  KeyboardDidHideEvent: RNKeyboardEventsManager.KeyboardDidHide,
+  KeyboardWillChangeFrameEvent: RNKeyboardEventsManager.KeyboardWillChangeFrame,
+  KeyboardDidChangeFrameEvent: RNKeyboardEventsManager.KeyboardDidChangeFrame
 };
