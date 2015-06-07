@@ -1,6 +1,6 @@
 {
   "name": "react-native-keyboardevents",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "Monitors keyboard show/hide notifications",
   "main": "KeyboardEvents.ios.js",
   "scripts": {
@@ -23,6 +23,6 @@
     "eventemitter3": "^1.1.0"
   },
   "peerDependencies": {
-    "react-native": ">=0.3.4 <0.5.0"
+    "react-native": ">=0.3.4 <0.6.0"
   }
 }
