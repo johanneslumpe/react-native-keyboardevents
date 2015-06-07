@@ -5,39 +5,28 @@ var RNKeyboardEventsManager = require('NativeModules').RNKeyboardEventsManager;
 var EventEmitter = require('eventemitter3');
 
 var KeyboardEventEmitter = new EventEmitter();
+var events = [
+  'WillShow',
+  'DidShow',
+  'WillHide',
+  'DidHide',
+  'WillChangeFrame',
+  'DidChangeFrame',
+].map((event) => 'Keyboard' + event);
 
-RCTDeviceEventEmitter.addListener(
-  RNKeyboardEventsManager.KeyboardWillShow,
-  (frames) => {
-    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardWillShow, frames);
-  }
-);
+events.forEach((eventKey) => {
+  var event = RNKeyboardEventsManager[eventKey];
+  RCTDeviceEventEmitter.addListener(
+    event,
+    (frames) => {
+      KeyboardEventEmitter.emit(event, frames);
+    }
+  );
+});
 
-RCTDeviceEventEmitter.addListener(
-  RNKeyboardEventsManager.KeyboardDidShow,
-  (frames) => {
-    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardDidShow, frames);
-  }
-);
-
-RCTDeviceEventEmitter.addListener(
-  RNKeyboardEventsManager.KeyboardWillHide,
-  (frames) => {
-    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardWillHide, frames);
-  }
-);
-
-RCTDeviceEventEmitter.addListener(
-  RNKeyboardEventsManager.KeyboardDidHide,
-  (frames) => {
-    KeyboardEventEmitter.emit(RNKeyboardEventsManager.KeyboardDidHide, frames);
-  }
-);
-
-module.exports = {
-  Emitter: KeyboardEventEmitter,
-  KeyboardWillShowEvent: RNKeyboardEventsManager.KeyboardWillShow,
-  KeyboardDidShowEvent: RNKeyboardEventsManager.KeyboardDidShow,
-  KeyboardWillHideEvent: RNKeyboardEventsManager.KeyboardWillHide,
-  KeyboardDidHideEvent: RNKeyboardEventsManager.KeyboardDidHide
-};
+module.exports = events.reduce((carry, eventKey) => {
+  carry[eventKey + 'Event'] = RNKeyboardEventsManager[eventKey];
+  return carry;
+},{
+  Emitter: KeyboardEventEmitter
+});
