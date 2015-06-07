@@ -15,7 +15,8 @@ static NSString* RNKeyboardEventsDidShow = @"keyboardDidShow";
 static NSString* RNKeyboardEventsDidHide = @"keyboardDidHide";
 static NSString* RNKeyboardEventsWillShow = @"keyboardWillShow";
 static NSString* RNKeyboardEventsWillHide = @"keyboardWillHide";
-
+static NSString* RNKeyboardEventsWillChangeFrame = @"keyboardWillChangeFrame";
+static NSString* RNKeyboardEventsDidChangeFrame = @"keyboardDidChangeFrame";
 
 @implementation RNKeyboardEventsManager
 
@@ -40,9 +41,16 @@ RCT_EXPORT_MODULE();
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-
+   [[NSNotificationCenter defaultCenter] addObserver:self
+                                            selector:@selector(keyboardWillChangeFrame:)
+                                                name:UIKeyboardWillChangeFrameNotification
+                                              object:nil];
+   [[NSNotificationCenter defaultCenter] addObserver:self
+                                            selector:@selector(keyboardDidChangeFrame:)
+                                                name:UIKeyboardDidChangeFrameNotification
+                                              object:nil];
   }
-  
+
   return self;
 }
 
@@ -51,7 +59,7 @@ RCT_EXPORT_MODULE();
   CGPoint origin = rect.origin;
   int h = MIN(size.height, size.width);
   int w = MAX(size.height, size.width);
-  
+
   return @{
     @"width": [NSNumber numberWithInt:w],
     @"height": [NSNumber numberWithInt:h],
@@ -64,13 +72,12 @@ RCT_EXPORT_MODULE();
   CGRect keyboardBeginRect = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
   CGRect keyboardEndRect = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
   NSNumber *durationValue = [[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    
+
   NSDictionary *body = @{
-                       @"begin": [self getDictionaryForRect:keyboardBeginRect],
-                       @"end": [self getDictionaryForRect:keyboardEndRect],
-                       @"duration": durationValue
-                       };
-  
+    @"begin": [self getDictionaryForRect:keyboardBeginRect],
+    @"end": [self getDictionaryForRect:keyboardEndRect],
+    @"duration": durationValue
+  };
 
   return body;
 }
@@ -95,6 +102,16 @@ RCT_EXPORT_MODULE();
                                               body:[self makeBodyFromNotification:notification]];
 }
 
+- (void)keyboardWillChangeFrame:(NSNotification*)notification {
+  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsWillChangeFrame
+                                              body:[self makeBodyFromNotification:notification]];
+}
+
+- (void)keyboardDidChangeFrame:(NSNotification*)notification {
+  [_bridge.eventDispatcher sendDeviceEventWithName:RNKeyboardEventsDidChangeFrame
+                                              body:[self makeBodyFromNotification:notification]];
+}
+
 - (NSDictionary *)constantsToExport
 {
   return @{
@@ -102,6 +119,8 @@ RCT_EXPORT_MODULE();
     @"KeyboardDidHide": RNKeyboardEventsDidHide,
     @"KeyboardWillShow": RNKeyboardEventsWillShow,
     @"KeyboardWillHide": RNKeyboardEventsWillHide,
+    @"KeyboardWillChangeFrame": RNKeyboardEventsWillChangeFrame,
+    @"KeyboardDidChangeFrame": RNKeyboardEventsDidChangeFrame,
   };
 }
 
