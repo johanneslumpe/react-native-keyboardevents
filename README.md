@@ -55,6 +55,14 @@ KeyboardEventEmitter.on(KeyboardEvents.KeyboardWillHideEvent, (frames) => {
 KeyboardEventEmitter.on(KeyboardEvents.KeyboardDidHideEvent, (frames) => {
   console.log('did hide', frames);
 });
+
+KeyboardEventEmitter.on(KeyboardEvents.KeyboardWillChangeFrame, (frames) => {
+  console.log('will change', frames);
+});
+
+KeyboardEventEmitter.on(KeyboardEvents.KeyboardDidChangeFrame, (frames) => {
+  console.log('did change', frames);
+});
 ```
 
 ### How to move a view when the keyboard shows up
