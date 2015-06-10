@@ -23,6 +23,6 @@
     "eventemitter3": "^1.1.0"
   },
   "peerDependencies": {
-    "react-native": ">=0.3.4 <=0.6.0"
+    "react-native": ">=0.3.4 <=0.6.0rc"
   }
 }
