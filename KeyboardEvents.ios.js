@@ -20,7 +20,7 @@ var events = [
 
 events.forEach((eventKey) => {
   var event = RNKeyboardEventsManager[eventKey];
-  RCTDeviceEventEmitter.addListener(
+  DeviceEventEmitter.addListener(
     event,
     (frames) => {
       KeyboardEventEmitter.emit(event, frames);
