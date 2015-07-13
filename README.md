@@ -56,11 +56,11 @@ KeyboardEventEmitter.on(KeyboardEvents.KeyboardDidHideEvent, (frames) => {
   console.log('did hide', frames);
 });
 
-KeyboardEventEmitter.on(KeyboardEvents.KeyboardWillChangeFrame, (frames) => {
+KeyboardEventEmitter.on(KeyboardEvents.KeyboardWillChangeFrameEvent, (frames) => {
   console.log('will change', frames);
 });
 
-KeyboardEventEmitter.on(KeyboardEvents.KeyboardDidChangeFrame, (frames) => {
+KeyboardEventEmitter.on(KeyboardEvents.KeyboardDidChangeFrameEvent, (frames) => {
   console.log('did change', frames);
 });
 ```
