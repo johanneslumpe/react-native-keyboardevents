@@ -75,7 +75,7 @@ RCT_EXPORT_MODULE();
 
     
   // Normalization: if durationValue is null, set it to 0
-  if(durationValue == nil) {
+  if (durationValue == nil) {
     durationValue = [NSNumber numberWithDouble:0];
   }
 
