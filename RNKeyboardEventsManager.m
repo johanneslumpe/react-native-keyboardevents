@@ -75,8 +75,9 @@ RCT_EXPORT_MODULE();
 
     
   // Normalization: if durationValue is null, set it to 0
-  if(durationValue == nil)
-    durationValue = [[NSNumber alloc] initWithDouble:0];
+  if(durationValue == nil) {
+    durationValue = [NSNumber numberWithDouble:0];
+  }
 
   NSDictionary *body = @{
     @"begin": [self getDictionaryForRect:keyboardBeginRect],
