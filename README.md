@@ -2,6 +2,7 @@
 
 Keyboard events for react-native
 
+**As of `react-native 0.11` this module is obsolete.**
 
 ## Usage
 
