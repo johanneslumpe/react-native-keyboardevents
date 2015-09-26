@@ -23,6 +23,14 @@ events.forEach((eventKey) => {
   DeviceEventEmitter.addListener(
     event,
     (frames) => {
+      if (frames.startCoordinates) {
+        frames.begin = frames.startCoordinates;
+      }
+
+      if (frames.endCoordinates) {
+        frames.end = frames.endCoordinates;
+      }
+
       KeyboardEventEmitter.emit(event, frames);
     }
   );
