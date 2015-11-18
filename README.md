@@ -39,6 +39,7 @@ class SomeScene extends React.Component {
   }
 }
 ```
+This takes full advantage of [RCTKeyboardObserver.m](https://github.com/facebook/react-native/blob/master/React/Base/RCTKeyboardObserver.m), which is built-in.
 
 ## Usage
 
