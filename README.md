@@ -2,7 +2,7 @@
 
 Keyboard events for react-native
 
-### Death Notice - As of `react-native 0.11` this module is obsolete.
+**As of `react-native 0.11` this module is obsolete.**
 Now you can do something like the following: _Example by [GantMan](https://github.com/GantMan)_
 ```es6
 'use strict'
@@ -29,7 +29,7 @@ class SomeScene extends React.Component {
   keyboardWillHide (e) {
     this.setState({visibleHeight: Dimensions.get('window').height})
   }
-  
+
   render () {
     return (
       <View style={{height: this.state.visibleHeight}}>
