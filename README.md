@@ -3,6 +3,43 @@
 Keyboard events for react-native
 
 **As of `react-native 0.11` this module is obsolete.**
+Now you can do something like the following: _Example by [GantMan](https://github.com/GantMan)_
+```es6
+'use strict'
+import { Dimensions } from 'react-native'
+import React, {View, DeviceEventEmitter} from 'react-native'
+class SomeScene extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      visibleHeight: Dimensions.get('window').height
+    }
+  }
+
+  componentWillMount () {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+  }
+
+  keyboardWillShow (e) {
+    let newSize = Dimensions.get('window').height - e.endCoordinates.height
+    this.setState({visibleHeight: newSize})
+  }
+
+  keyboardWillHide (e) {
+    this.setState({visibleHeight: Dimensions.get('window').height})
+  }
+
+  render () {
+    return (
+      <View style={{height: this.state.visibleHeight}}>
+       ...
+      </View>
+    )
+  }
+}
+```
+This takes full advantage of [RCTKeyboardObserver.m](https://github.com/facebook/react-native/blob/master/React/Base/RCTKeyboardObserver.m), which is built-in.
 
 ## Usage
 
