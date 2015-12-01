@@ -20,10 +20,12 @@ class SomeScene extends React.Component {
     DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
     DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
   }
-
+  
   keyboardWillShow (e) {
-    let newSize = Dimensions.get('window').height - e.endCoordinates.height
-    this.setState({visibleHeight: newSize})
+    if (e.endCoordinates && e.endCoordinates.height) {
+      let newSize = Dimensions.get('window').height - e.endCoordinates.height;
+      this.setState({visibleHeight: newSize})
+    }
   }
 
   keyboardWillHide (e) {
