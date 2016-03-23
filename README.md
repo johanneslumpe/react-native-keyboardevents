@@ -3,7 +3,10 @@
 Keyboard events for react-native
 
 **As of `react-native 0.11` this module is obsolete.**
-Now you can do something like the following: _Example by [GantMan](https://github.com/GantMan)_
+
+Here's a good article on the subject: [Keyboard Avoiding in React Native](https://shift.infinite.red/avoiding-the-keyboard-in-react-native-56d05b9a1e81#.977780trk)
+
+_Simple Example by [GantMan](https://github.com/GantMan)_
 ```es6
 'use strict'
 import { Dimensions } from 'react-native'
